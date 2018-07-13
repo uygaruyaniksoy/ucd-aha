@@ -21,6 +21,7 @@ function playAudio() {
 AFRAME.registerComponent('menu1-item1', {
   init: function () {
     this.el.addEventListener('click', function (evt) {
+      if (!firstMenu.getAttribute('visible')) return; // if menu is invisible dont register onclick event
       console.log("first item selected");
       setVisible(secondMenu); // procedes into secondMenu
       setInvisible(firstMenu);
@@ -31,6 +32,7 @@ AFRAME.registerComponent('menu1-item1', {
 AFRAME.registerComponent('coin-menu-item', {
   init: function () {
     this.el.addEventListener('click', function (evt) {
+      if (!secondMenu.getAttribute('visible')) return;
       model.setAttribute('gltf-model', '#coin')
       setVisible(firstMenu);
       setInvisible(secondMenu);
@@ -41,6 +43,7 @@ AFRAME.registerComponent('coin-menu-item', {
 AFRAME.registerComponent('apple-menu-item', {
   init: function () {
     this.el.addEventListener('click', function (evt) {
+      if (!secondMenu.getAttribute('visible')) return;
       model.setAttribute('gltf-model', '#apple')
       setVisible(firstMenu);
       setInvisible(secondMenu);
@@ -48,25 +51,12 @@ AFRAME.registerComponent('apple-menu-item', {
   }
 });
 
-AFRAME.registerComponent('coin-animator', {
+AFRAME.registerComponent('model-animator', {
   init: function () {
-    console.log(this.el);
     this.el.addEventListener('click', function (evt) {
-      console.log(this);
-      // playAudio();
       if (!showingLetter) this.emit('show-letter');
       else this.emit('hide-letter');
       showingLetter = !showingLetter;
-    });
-  }
-});
-
-AFRAME.registerComponent('apple-animator', {
-  init: function () {
-    console.log(this.el);
-    this.el.addEventListener('click', function (evt) {
-      console.log(this);
-
     });
   }
 });

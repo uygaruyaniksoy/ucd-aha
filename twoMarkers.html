@@ -6,16 +6,10 @@
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: fixed; top: 10px; width:100%; text-align: center;'>
 </div>
 	<a-scene stats embedded arjs='sourceType: webcam; detectionMode: mono; maxDetectionRate: 30; canvasWidth: 240; canvasHeight: 180; debugUIEnabled: false;'>
-		<!-- handle unknown marker -->
-		<!-- <a-marker type='unknown'>
-			<a-box depth="1" height="1" width="1" position='0 0.5 0' material='opacity: 0.5; side:double; color:blue;'></a-box>
-		</a-marker> -->
-
 		<a-assets>
-		<a-asset-item id="coin" src="https://cdn.rawgit.com/doctor-emmet/AHA-AR/master/Jaz/Review%20Models/Models/thicerBee.gltf"></a-asset-item>
-		<a-asset-item id="apple" src="https://cdn.rawgit.com/doctor-emmet/AHA-AR/master/Jaz/Review%20Models/Models/apple.gltf"></a-asset-item>
-	</a-assets>
-
+			<a-asset-item id="coin" src="https://cdn.rawgit.com/doctor-emmet/AHA-AR/master/Jaz/Review%20Models/Models/thicerBee.gltf"></a-asset-item>
+			<a-asset-item id="apple" src="https://cdn.rawgit.com/doctor-emmet/AHA-AR/master/Jaz/Review%20Models/Models/apple.gltf"></a-asset-item>
+		</a-assets>
 		<!-- handle hiro marker -->
 		<a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/themukh/marker/master/hiro.patt'>
 			<a-entity cursor="rayOrigin: mouse">
@@ -50,20 +44,6 @@
 					position="0.5 0.5 -0.5"
 					rotation="-90 0 0"
 					animation-mixer="loop:repeat">
-						<a-animation
-							begin="grow"
-							attribute="scale"
-							dur="500"
-							to="0.3 0.3 0.3"
-							repeat="0">
-						</a-animation>
-						<a-animation
-							begin="shrink"
-							attribute="scale"
-							dur="500"
-							to="0.3 0.3 0.3"
-							repeat="0">
-						</a-animation>
 				</a-entity>
 
 				<a-entity gltf-model="#apple" apple-menu-item
@@ -71,20 +51,6 @@
 					position="-0.5 0.5 -0.5"
 					rotation="-90 0 0"
 					animation-mixer="loop:repeat">
-						<a-animation
-							begin="grow"
-							attribute="scale"
-							dur="500"
-							to="0.3 0.3 0.3"
-							repeat="0">
-						</a-animation>
-						<a-animation
-							begin="shrink"
-							attribute="scale"
-							dur="500"
-							to="0.3 0.3 0.3"
-							repeat="0">
-						</a-animation>
 					</a-entity>
 				</a-entity>
 
@@ -96,11 +62,19 @@
 		<a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/themukh/marker/master/marker.patt'>
 			<a-entity>  <!-- Grandparent entity -->
 				<a-animation
-					begin="click"
+					begin="show-letter"
 					attribute="rotation"
 					dur="600"
 					from="0 0 0"
 					to="0 180 0"
+					repeat="0">
+				</a-animation>
+				<a-animation
+					begin="hide-letter"
+					attribute="rotation"
+					dur="600"
+					from="0 180 0"
+					to="0 360 0"
 					repeat="0">
 				</a-animation>
 
