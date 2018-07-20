@@ -60,3 +60,41 @@ AFRAME.registerComponent('model-animator', {
     });
   }
 });
+
+var morePreviousMarkers = [];
+var previousMarkers = [];
+var markers = [];
+var lastFrameTime = (new Date()).getTime();
+var clickInterval = 400;
+
+setInterval(() => {
+  console.log(markers);
+  if (
+    morePreviousMarkers.indexOf(0) >= 0 &&
+    previousMarkers.indexOf(0) < 0 &&
+    markers.indexOf(0) >= 0
+  ) {
+    setTimeout(() => {
+      console.log("ROTATE");
+      model.emit('click');
+    }, 100);
+  }
+  morePreviousMarkers = previousMarkers;
+  previousMarkers = markers;
+  markers = [];
+}, clickInterval);
+
+setTimeout(() => {
+  window.arController.addEventListener('getMarker', function(ev) {
+    var markerId = ev.data.marker.id
+    if (markers.indexOf(markerId) < 0 && markerId >= 0) {
+      markers.push(markerId);
+    }
+    // console.log("Detected marker with ids:", ev.data.marker.id, ev.data.marker.idPatt, ev.data.marker.idMatrix);
+    // console.log("Marker data", ev.data.marker);
+    // console.log("morePreviousMarkers: ", morePreviousMarkers);
+    // console.log("previousMarkers: ", previousMarkers);
+    // console.log("markers: ", markers);
+  });
+  console.log("getmarker eventlistener");
+}, 5000)
