@@ -68,7 +68,6 @@ var gestures = [];
 var clickInterval = 100;
 var markers;
 
-
 setInterval(() => {
   if (!markers) return;
   currentMarkers = markers.filter(m => m.object3D.visible);
@@ -92,9 +91,45 @@ setInterval(() => {
 setTimeout(() => {
   markers = [...$('a-marker')];
   console.log("getmarker eventlistener");
+
+  document.addEventListener('rightslide', handleRightSlide);
+  document.addEventListener('longrightslide', handleLongRightSlide);
+  document.addEventListener('leftslide', handleLeftSlide);
+  document.addEventListener('longleftslide', handleLongLeftSlide);
 }, 3000)
 
 function handleGestures(gestures) {
   console.log('gesture');
-  $('#box')[0].emit('rotate'+Math.max(Math.min(gestures.length, 4), 1));
+  let m1 = $('a-marker[value="2"]')[0];
+  let m2 = $('a-marker[value="3"]')[0];
+  let m3 = $('a-marker[value="4"]')[0];
+  let m4 = $('a-marker[value="5"]')[0];
+  let events = [
+    { markers: [m3, m4], event: 'rightslide'},
+    { markers: [m2, m3, m4], event: 'longrightslide'},
+    { markers: [m2, m1], event: 'leftslide'},
+    { markers: [m3, m2, m1], event: 'longleftslide'},
+  ];
+  events.forEach((e) => {
+    if (gestures.filter((g, i) => g !== e.markers[i]).length === 0) {
+      document.dispatchEvent(new Event(e.event));
+    }
+  });
+  // $('#box')[0].emit('rotate'+Math.max(Math.min(gestures.length, 4), 1));
+}
+
+function handleRightSlide(event) {
+  $('#box')[0].emit('rotate1');
+}
+
+function handleLongRightSlide(event) {
+  $('#box')[0].emit('rotate2');
+}
+
+function handleLeftSlide(event) {
+  $('#box')[0].emit('color1');
+}
+
+function handleLongLeftSlide(event) {
+  $('#box')[0].emit('color2');
 }
