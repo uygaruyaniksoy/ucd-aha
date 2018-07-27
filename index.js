@@ -92,10 +92,14 @@ setTimeout(() => {
   markers = [...$('a-marker')];
   console.log("getmarker eventlistener");
 
-  document.addEventListener('rightslide', handleRightSlide);
-  document.addEventListener('longrightslide', handleLongRightSlide);
+  document.addEventListener('shortleftslide', handleShortLeftSlide);
   document.addEventListener('leftslide', handleLeftSlide);
   document.addEventListener('longleftslide', handleLongLeftSlide);
+  document.addEventListener('shortrightslide', handleShortRightSlide);
+  document.addEventListener('rightslide', handleRightSlide);
+  document.addEventListener('longrightslide', handleLongRightSlide);
+  document.addEventListener('downslide', handleDownSlide);
+  document.addEventListener('upslide', handleUpSlide);
 }, 3000)
 
 function handleGestures(gestures) {
@@ -104,11 +108,19 @@ function handleGestures(gestures) {
   let m2 = $('a-marker[value="3"]')[0];
   let m3 = $('a-marker[value="4"]')[0];
   let m4 = $('a-marker[value="5"]')[0];
+  let m5 = $('a-marker[value="6"]')[0];
+  let m6 = $('a-marker[value="7"]')[0];
+  let m7 = $('a-marker[value="8"]')[0];
+  let m8 = $('a-marker[value="9"]')[0];
   let events = [
-    { markers: [m3, m4], event: 'rightslide'},
-    { markers: [m2, m3, m4], event: 'longrightslide'},
-    { markers: [m2, m1], event: 'leftslide'},
-    { markers: [m3, m2, m1], event: 'longleftslide'},
+    { markers: [m3, m4], event: 'shortrightslide' },
+    { markers: [m2, m3, m4], event: 'longrightslide' },
+    { markers: [m2, m1], event: 'shortleftslide' },
+    { markers: [m3, m2, m1], event: 'longleftslide' },
+    { markers: [m5, m6], event: 'rightslide' },
+    { markers: [m6, m5], event: 'leftslide' },
+    { markers: [m7, m8], event: 'downslide' },
+    { markers: [m8, m7], event: 'upslide' },
   ];
   events.forEach((e) => {
     if (gestures.filter((g, i) => g !== e.markers[i]).length === 0) {
@@ -118,7 +130,7 @@ function handleGestures(gestures) {
   // $('#box')[0].emit('rotate'+Math.max(Math.min(gestures.length, 4), 1));
 }
 
-function handleRightSlide(event) {
+function handleShortRightSlide(event) {
   $('#box')[0].emit('rotate1');
 }
 
@@ -126,10 +138,26 @@ function handleLongRightSlide(event) {
   $('#box')[0].emit('rotate2');
 }
 
-function handleLeftSlide(event) {
+function handleShortLeftSlide(event) {
   $('#box')[0].emit('color1');
 }
 
 function handleLongLeftSlide(event) {
+  $('#box')[0].emit('color2');
+}
+
+function handleLeftSlide(event) {
+  $('#box')[0].emit('translate1');
+}
+
+function handleRightSlide(event) {
+  $('#box')[0].emit('translate2');
+}
+
+function handleDownSlide(event) {
+  $('#box')[0].emit('color1');
+}
+
+function handleUpSlide(event) {
   $('#box')[0].emit('color2');
 }
