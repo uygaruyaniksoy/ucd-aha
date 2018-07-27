@@ -123,7 +123,7 @@ function handleGestures(gestures) {
     { markers: [m8, m7], event: 'upslide' },
   ];
   events.forEach((e) => {
-    if (gestures.filter((g, i) => g !== e.markers[i]).length === 0) {
+    if (gestures.filter((g, i) => g !== e.markers[i]).length === 0 && gestures.length === e.markers.length) {
       document.dispatchEvent(new Event(e.event));
     }
   });
