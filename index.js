@@ -133,10 +133,13 @@ function handleGestures(gestures) {
     { markers: [m7, m8], event: 'downslide' },
     { markers: [m8, m7], event: 'upslide' },
   ];
+  let found = false;
   events.forEach((e) => {
-    if (includesArray(gestures, e.markers) &&
-        gestures.length === e.markers.length) {
+    if (found) return;
+    if (includesArray(gestures, e.markers)) {
+      console.log(e.event);
       document.dispatchEvent(new Event(e.event));
+      found = true;
     }
   });
   // $('#box')[0].emit('rotate'+Math.max(Math.min(gestures.length, 4), 1));
