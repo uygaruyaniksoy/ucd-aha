@@ -103,6 +103,17 @@ setTimeout(() => {
 }, 3000)
 
 function handleGestures(gestures) {
+  let includesArray = (first, second) => {
+    let index = 0;
+    for (var i = 0; i < second.length; i++) {
+      if (first.slice(index).indexOf(second[i]) >= 0) {
+        index = first.slice(index).indexOf(second[i]) + index;
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
   console.log('gesture');
   let m1 = $('a-marker[value="2"]')[0];
   let m2 = $('a-marker[value="3"]')[0];
@@ -123,7 +134,8 @@ function handleGestures(gestures) {
     { markers: [m8, m7], event: 'upslide' },
   ];
   events.forEach((e) => {
-    if (gestures.filter((g, i) => g !== e.markers[i]).length === 0 && gestures.length === e.markers.length) {
+    if (includesArray(gestures, e.markers) &&
+        gestures.length === e.markers.length) {
       document.dispatchEvent(new Event(e.event));
     }
   });
