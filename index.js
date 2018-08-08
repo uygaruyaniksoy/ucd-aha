@@ -6,6 +6,8 @@ var secondMenu = document.getElementById('menu2');
 var model = document.getElementById('model-animator');
 var selectedMenu = "";
 
+// document.getElementById('spread').crossOrigin = "";
+
 function setVisible(item) {
   item.setAttribute('visible', 'true');
 }
