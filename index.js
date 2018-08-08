@@ -6,8 +6,6 @@ var secondMenu = document.getElementById('menu2');
 var model = document.getElementById('model-animator');
 var selectedMenu = "";
 
-// document.getElementById('spread').crossOrigin = "";
-
 function setVisible(item) {
   item.setAttribute('visible', 'true');
 }
@@ -164,17 +162,83 @@ function handleLongLeftSlide(event) {
 }
 
 function handleLeftSlide(event) {
-  $('#box')[0].emit('translate1');
+  // $('#box')[0].emit('translate1');
+
+  if ($('#temp-anim').length > 0) return;
+  var newElement = document.createElement("a-animation");
+  newElement.setAttribute('id', "temp-anim");
+  newElement.setAttribute('begin', "temp-anim");
+  newElement.setAttribute('attribute', "position");
+  newElement.setAttribute('fill', "forwards");
+  newElement.setAttribute('dur', "600");
+  newElement.setAttribute('from', selectionDistance(selectedValue));
+  newElement.setAttribute('to', selectionDistance(--selectedValue));
+
+  selection.appendChild(newElement);
+  selection.emit('temp-anim');
+
+  setTimeout(() => {
+    // selection.setAttribute('position', selectionDistance(selectedValue));
+    $('#temp-anim').remove();
+  }, 700);
 }
 
 function handleRightSlide(event) {
-  $('#box')[0].emit('translate2');
+  // $('#box')[0].emit('translate2');
+
+  if ($('#temp-anim').length > 0) return;
+  var newElement = document.createElement("a-animation");
+  newElement.setAttribute('id', "temp-anim");
+  newElement.setAttribute('begin', "temp-anim");
+  newElement.setAttribute('attribute', "position");
+  newElement.setAttribute('fill', "forwards");
+  newElement.setAttribute('dur', "600");
+  newElement.setAttribute('from', selectionDistance(selectedValue));
+  newElement.setAttribute('to', selectionDistance(++selectedValue));
+
+  selection.appendChild(newElement);
+  selection.emit('temp-anim');
+
+  setTimeout(() => {
+    selection.setAttribute('position', selectionDistance(selectedValue));
+    $('#temp-anim').remove();
+  }, 700);
 }
 
 function handleDownSlide(event) {
-  $('#box')[0].emit('color1');
+  // $('#box')[0].emit('color1');
+
 }
 
 function handleUpSlide(event) {
-  $('#box')[0].emit('color2');
+  // $('#box')[0].emit('color2');
+
 }
+
+var image3D = document.getElementById('spread-image');
+var selection = document.getElementById('selection-identicatior');
+
+var items = ['coin', 'ink', 'boy', 'snake', 'apple'];
+var distanceFromCenter = 1.25;
+var bottomOffset = 1.00;
+var selectionDistance = (i) => "" +
+      ((distanceFromCenter) * Math.sin(Math.PI * 2 * i / items.length)) +
+      " 0 " +
+      ((- ((distanceFromCenter) * Math.cos(Math.PI * 2 * i / items.length))) - bottomOffset + 0.05);
+
+var selectedValue = 0;
+image3D.setAttribute('position', '0 0 ' + (-bottomOffset));
+selection.setAttribute('position', selectionDistance(selectedValue));
+
+items.forEach((item, i) => {
+  var newElement = document.createElement("a-entity");
+  newElement.setAttribute('gltf-model', "#"+item);
+  newElement.setAttribute('scale', "0.25 0.25 0.25");
+  newElement.setAttribute('position', "" +
+                                    (distanceFromCenter * Math.sin(Math.PI * 2 * i / items.length)) + // x y z
+                                    " 0 " +
+                                    ((- (distanceFromCenter * Math.cos(Math.PI * 2 * i / items.length))) - bottomOffset) );
+  newElement.setAttribute('rotation', "-90 0 0");
+
+  image3D.parentEl.appendChild(newElement);
+});
