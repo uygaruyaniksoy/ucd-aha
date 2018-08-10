@@ -164,7 +164,6 @@ function handleLongLeftSlide(event) {
 function handleLeftSlide(event) {
   // if ($('#temp-anim').length > 0) return;
   animate(selection, {
-    'id': "temp-anim",
     'attribute': "position",
     'dur': "600",
     'from': selectionDistance(selectedValue),
@@ -175,7 +174,6 @@ function handleLeftSlide(event) {
 function handleRightSlide(event) {
   // if ($('#temp-anim').length > 0) return;
   animate(selection, {
-    'id': "temp-anim",
     'attribute': "position",
     'dur': "600",
     'from': selectionDistance(selectedValue),
@@ -186,13 +184,11 @@ function handleRightSlide(event) {
 function handleDownSlide(event) {
   let model = document.getElementById('model_' + ((selectedValue + items.length) % items.length));
   animate(model, {
-    'id': "temp-anim",
     'attribute': "rotation",
     'dur': "600",
     'from': '90 180 0',
     'to': '-90 0 0'
   }).next({
-    'id': "temp-anim",
     'attribute': "position",
     'dur': "600",
     'from': ('0 0.3 ' + (-bottomOffset)),
@@ -203,14 +199,12 @@ function handleDownSlide(event) {
 function handleUpSlide(event) {
   let model = document.getElementById('model_' + ((selectedValue + items.length) % items.length));
   animate(model, {
-    'id': "temp-anim",
     'attribute': "position",
     'dur': "600",
     'from': selectionDistance(selectedValue),
     'to': ('0 0.3 ' + (-bottomOffset))
   }).next({
-      'id': "temp-anim",
-      'attribute': "rotation",
+        'attribute': "rotation",
       'dur': "600",
       'from': '-90 0 0',
       'to': '90 180 0'
@@ -225,8 +219,8 @@ var image3D = document.getElementById('spread-image');
 var selection = document.getElementById('selection-identicatior');
 
 var items = ['coin', 'ink', 'boy', 'snake', 'apple'];
-var distanceFromCenter = 1.25;
-var bottomOffset = 1.00;
+var distanceFromCenter = 0.95;
+var bottomOffset = 0.10;
 var selectionDistance = (i) => "" +
       ((distanceFromCenter) * Math.sin(Math.PI * 2 * i / items.length)) +
       " 0 " +
@@ -252,6 +246,7 @@ items.forEach((item, i) => {
 
 var animationCounter = 0;
 function animate(element, options) {
+  if (!options.id) options.id = "temp-anim";
   var newElement = document.createElement("a-animation");
   var id = options.id;
   var animId = animationCounter++;
