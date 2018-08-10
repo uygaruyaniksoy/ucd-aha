@@ -162,58 +162,64 @@ function handleLongLeftSlide(event) {
 }
 
 function handleLeftSlide(event) {
-  // $('#box')[0].emit('translate1');
-
-  if ($('#temp-anim').length > 0) return;
-  var newElement = document.createElement("a-animation");
-  newElement.setAttribute('id', "temp-anim");
-  newElement.setAttribute('begin', "temp-anim");
-  newElement.setAttribute('attribute', "position");
-  newElement.setAttribute('fill', "forwards");
-  newElement.setAttribute('dur', "600");
-  newElement.setAttribute('from', selectionDistance(selectedValue));
-  newElement.setAttribute('to', selectionDistance(--selectedValue));
-
-  selection.appendChild(newElement);
-  selection.emit('temp-anim');
-
-  setTimeout(() => {
-    // selection.setAttribute('position', selectionDistance(selectedValue));
-    $('#temp-anim').remove();
-  }, 700);
+  // if ($('#temp-anim').length > 0) return;
+  animate(selection, {
+    'id': "temp-anim",
+    'attribute': "position",
+    'dur': "600",
+    'from': selectionDistance(selectedValue),
+    'to': selectionDistance(--selectedValue)
+  })
 }
 
 function handleRightSlide(event) {
-  // $('#box')[0].emit('translate2');
-
-  if ($('#temp-anim').length > 0) return;
-  var newElement = document.createElement("a-animation");
-  newElement.setAttribute('id', "temp-anim");
-  newElement.setAttribute('begin', "temp-anim");
-  newElement.setAttribute('attribute', "position");
-  newElement.setAttribute('fill', "forwards");
-  newElement.setAttribute('dur', "600");
-  newElement.setAttribute('from', selectionDistance(selectedValue));
-  newElement.setAttribute('to', selectionDistance(++selectedValue));
-
-  selection.appendChild(newElement);
-  selection.emit('temp-anim');
-
-  setTimeout(() => {
-    selection.setAttribute('position', selectionDistance(selectedValue));
-    $('#temp-anim').remove();
-  }, 700);
+  // if ($('#temp-anim').length > 0) return;
+  animate(selection, {
+    'id': "temp-anim",
+    'attribute': "position",
+    'dur': "600",
+    'from': selectionDistance(selectedValue),
+    'to': selectionDistance(++selectedValue)
+  })
 }
 
 function handleDownSlide(event) {
-  // $('#box')[0].emit('color1');
-
+  let model = document.getElementById('model_' + ((selectedValue + items.length) % items.length));
+  animate(model, {
+    'id': "temp-anim",
+    'attribute': "rotation",
+    'dur': "600",
+    'from': '90 180 0',
+    'to': '-90 0 0'
+  }).next({
+    'id': "temp-anim",
+    'attribute': "position",
+    'dur': "600",
+    'from': ('0 0.3 ' + (-bottomOffset)),
+    'to': selectionDistance(selectedValue)
+    });
 }
 
 function handleUpSlide(event) {
-  // $('#box')[0].emit('color2');
-
+  let model = document.getElementById('model_' + ((selectedValue + items.length) % items.length));
+  animate(model, {
+    'id': "temp-anim",
+    'attribute': "position",
+    'dur': "600",
+    'from': selectionDistance(selectedValue),
+    'to': ('0 0.3 ' + (-bottomOffset))
+  }).next({
+      'id': "temp-anim",
+      'attribute': "rotation",
+      'dur': "600",
+      'from': '-90 0 0',
+      'to': '90 180 0'
+    });
+  setTimeout(() => {
+    audio.play();
+  }, 600);
 }
+
 
 var image3D = document.getElementById('spread-image');
 var selection = document.getElementById('selection-identicatior');
@@ -232,6 +238,7 @@ selection.setAttribute('position', selectionDistance(selectedValue));
 
 items.forEach((item, i) => {
   var newElement = document.createElement("a-entity");
+  newElement.setAttribute('id', "model_"+i);
   newElement.setAttribute('gltf-model', "#"+item);
   newElement.setAttribute('scale', "0.25 0.25 0.25");
   newElement.setAttribute('position', "" +
@@ -242,3 +249,26 @@ items.forEach((item, i) => {
 
   image3D.parentEl.appendChild(newElement);
 });
+
+var animationCounter = 0;
+function animate(element, options) {
+  var newElement = document.createElement("a-animation");
+  var id = options.id;
+  var animId = animationCounter++;
+  newElement.setAttribute('id', id + animId);
+  newElement.setAttribute('begin', id + animId);
+
+  Object.keys(options).forEach((opt) => {
+    newElement.setAttribute(opt, options[opt]);
+  });
+  element.appendChild(newElement);
+  element.emit(id + animId);
+  setTimeout(() => {
+    $('#' + id + animId).remove();
+  }, options.dur);
+  return {
+    next: function(opts) {
+      setTimeout(() => animate(element, opts), options.dur);
+    }
+  };
+}
