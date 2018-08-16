@@ -4966,7 +4966,7 @@ ARjs.MarkerControls.prototype._initArtoolkit = function(){
 		// honor his.parameters.minConfidence
 		if( event.data.type === artoolkit.PATTERN_MARKER && event.data.marker.cfPatt < _this.parameters.minConfidence )	return
 		if( event.data.type === artoolkit.BARCODE_MARKER && event.data.marker.cfMatt < _this.parameters.minConfidence )	return
-
+		console.log("CONFIDENCE", event.data.type === artoolkit.PATTERN_MARKER && event.data.marker.cfPatt, event.data.type === artoolkit.BARCODE_MARKER && event.data.marker.cfMatt);
 		var modelViewMatrix = new THREE.Matrix4().fromArray(event.data.matrix)
 		_this.updateWithModelViewMatrix(modelViewMatrix)
 	}
