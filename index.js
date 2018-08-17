@@ -115,10 +115,10 @@ function handleGestures(gestures) {
     return true;
   }
   console.log('gesture');
-  let m1 = $('a-marker[value="2"]')[0];
-  let m2 = $('a-marker[value="3"]')[0];
-  let m3 = $('a-marker[value="4"]')[0];
-  let m4 = $('a-marker[value="5"]')[0];
+  let m1 = null;//$('a-marker[value="2"]')[0];
+  let m2 = null;//$('a-marker[value="3"]')[0];
+  let m3 = null;//$('a-marker[value="4"]')[0];
+  let m4 = null;//$('a-marker[value="5"]')[0];
   let m5 = $('a-marker[value="6"]')[0];
   let m6 = $('a-marker[value="7"]')[0];
   let m7 = $('a-marker[value="8"]')[0];
