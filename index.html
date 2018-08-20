@@ -24,62 +24,22 @@
 
 		</a-assets>
 
-		<a-marker id="marker2" preset='custom' type='pattern' url='https://raw.githubusercontent.com/themukh/marker/master/marker.patt'>
-			<a-entity>  <!-- Grandparent entity -->
-				<a-animation
-					begin="show-letter"
-					attribute="rotation"
-					dur="600"
-					from="0 0 0"
-					to="0 180 0"
-					repeat="0">
-				</a-animation>
-				<a-animation
-					begin="hide-letter"
-					attribute="rotation"
-					dur="600"
-					from="0 180 0"
-					to="0 360 0"
-					repeat="0">
-				</a-animation>
-
-					<a-entity gltf-model="#q" model-animator
-						id="model-animator"
-						scale="0.25 0.25 0.25"
-						position="0 0.5 0"
-						rotation="0 0 0"
-						animation-mixer="loop:repeat">
-					</a-entity>
-
-
-			</a-entity>
-		</a-marker>
-
 		<a-marker type='barcode' value='1'>
-		<!-- <a-marker id="main-marker" preset='custom' type='pattern' url='https://raw.githubusercontent.com/uygaruyaniksoy/ucd-aha/master/markers/wwl/pattern-marker (6).patt'> -->
-		<!-- <a-marker id="marker1" preset='custom' type='pattern' url='https://raw.githubusercontent.com/themukh/marker/master/hiro.patt'> -->
 			<a-torus id="selection-identicatior" color="#ECFF33" arc="360" radius="0.4" radius-tubular="0.02" rotation="90 0 0"></a-torus>
 			<a-image id="spread-image" src="#spread" width="1" height="1" rotation="-90 0 0"></a-image>
 
 		</a-marker>
-		<!-- <a-marker type='barcode' value='2'> <a-box material="color: blue;"></a-box> </a-marker>
+		<!--
+		<a-marker type='barcode' value='2'> <a-box material="color: blue;"></a-box> </a-marker>
 		<a-marker type='barcode' value='3'> <a-box material="color: blue;"></a-box> </a-marker>
 		<a-marker type='barcode' value='4'> <a-box material="color: blue;"></a-box> </a-marker>
-		<a-marker type='barcode' value='5'> <a-box material="color: blue;"></a-box> </a-marker> -->
+		<a-marker type='barcode' value='5'> <a-box material="color: blue;"></a-box> </a-marker>
+		-->
 		<a-marker type='barcode' value='6'> <a-box material="color: lime;"></a-box> </a-marker>
 		<a-marker type='barcode' value='7'> <a-box material="color: orange;"></a-box> </a-marker>
 		<a-marker type='barcode' value='8'> <a-box material="color: cyan;"></a-box> </a-marker>
 		<a-marker type='barcode' value='9'> <a-box material="color: blue;"></a-box> </a-marker>
 
-		<!-- <a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/uygaruyaniksoy/ucd-aha/master/markers/wwl/pattern-marker (0).patt'> <a-box></a-box> </a-marker>
-		<a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/uygaruyaniksoy/ucd-aha/master/markers/wwl/pattern-marker (1).patt'> <a-box></a-box> </a-marker>
-		<a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/uygaruyaniksoy/ucd-aha/master/markers/wwl/pattern-marker (2).patt'> <a-box></a-box> </a-marker>
-		<a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/uygaruyaniksoy/ucd-aha/master/markers/wwl/pattern-marker (3).patt'> <a-box></a-box> </a-marker>
-		<a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/uygaruyaniksoy/ucd-aha/master/markers/wwl/pattern-marker (4).patt'> <a-box></a-box> </a-marker>
-		<a-marker preset='custom' type='pattern' url='https://raw.githubusercontent.com/uygaruyaniksoy/ucd-aha/master/markers/wwl/pattern-marker (5).patt'> <a-box></a-box> </a-marker> -->
-
-
-		<!-- add a simple camera -->
 		<a-entity camera></a-entity>
 	</a-scene>
 	<script src="index.js"></script>
