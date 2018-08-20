@@ -4965,8 +4965,8 @@ ARjs.MarkerControls.prototype._initArtoolkit = function(){
 	function onMarkerFound(event){
 		// honor his.parameters.minConfidence
 		let confidence = event.data.type === artoolkit.PATTERN_MARKER ? event.data.marker.cfPatt : event.data.marker.cfMatt;
-		console.log("CONFIDENCE", confidence);
-		if (confidence) document.getElementById('confidence').innerText = confidence;
+		// console.log("CONFIDENCE", confidence);
+		// if (confidence) document.getElementById('confidence').innerText = confidence;
 		if( event.data.type === artoolkit.PATTERN_MARKER && event.data.marker.cfPatt < _this.parameters.minConfidence )	return
 		if( event.data.type === artoolkit.BARCODE_MARKER && event.data.marker.cfMatt < _this.parameters.minConfidence )	return
 		var modelViewMatrix = new THREE.Matrix4().fromArray(event.data.matrix)
